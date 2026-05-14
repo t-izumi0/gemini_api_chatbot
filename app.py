@@ -2,6 +2,7 @@ import streamlit as st
 from google import genai
 
 api_key = st.secrets.GeminiAPI.api_key
+prompt_settings = st.secrets.AppSettings.chatbot_setting
 client = genai.Client(api_key=api_key)
 
 # st.session_stateを使いメッセージのやりとりを保存
@@ -22,7 +23,7 @@ def communicate():
     messages.append(user_message)
 
     # Geminiへ渡すプロンプト作成
-    prompt = "あなたは優秀なアシスタントAIです。\n\n"
+    prompt = prompt_settings
 
     for msg in messages:
         prompt += f"{msg['role']}: {msg['content']}\n"
